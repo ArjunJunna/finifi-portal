@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import { BellDot, Link } from "lucide-react";
+import React, { useRef, useState } from "react";
+import { BellDot } from "lucide-react";
 import Image from "next/image";
 import { signOut } from "next-auth/react";
-import { useSession } from "next-auth/react";
 import useOnClickOutside from "@/utils/useOnClickOutside";
 
 const Navbar = () => {
@@ -13,31 +12,13 @@ const Navbar = () => {
     email: "rohit.sharma@growquest.in",
   };
   const [showUserModal, setShowUserModal] = useState(false);
-  const [theme, setTheme] = useState<string | null>(null);
-  const handleThemeSwitch = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
-  const ref = useRef();
+  const ref = useRef<HTMLDivElement | null>(null);
  
   const handlerRef = () => {
     setShowUserModal(false);
   };
 
   useOnClickOutside(ref, handlerRef);
-  useEffect(() => {
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      setTheme("dark");
-    } else {
-      setTheme("light");
-    }
-  }, []);
-  useEffect(() => {
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [theme]);
 
   return (
     <header className="bg-white border-b border-gray-200">
@@ -72,31 +53,11 @@ const Navbar = () => {
           </div>
           {showUserModal ? (
             <div
-              className="absolute top-12 right-8 text-sm flex flex-col gap-1.5 items-start   text-center border shadow-xl  z-10   rounded  dark:shadow-slate-900 dark:bg-slate-800  dark:text-slate-100 border-gray-300 dark:border-slate-500 text-slate-900 bg-white "
+              className="absolute top-12 right-8 text-sm flex flex-col gap-1.5 items-start   text-center border shadow-xl  z-10   rounded bg-slate-200 border-gray-300 dark:border-slate-500 text-slate-900  "
               ref={ref}
             >
               <div
-                className="cursor-pointer hover:bg-gray-300 dark:hover:bg-slate-700 py-2 px-4 w-36 rounded"
-                onClick={() => {
-                  handleThemeSwitch();
-                  setShowUserModal(prev => !prev);
-                }}
-              >
-                {theme === "light" ? (
-                  <>
-                    <i className="mr-2 bi bi-moon-fill"></i>
-                    <span className="text-sm">Dark Mode</span>
-                  </>
-                ) : (
-                  <>
-                    <i className="mr-2 bi bi-brightness-high"></i>
-                    <span className="text-sm">Light Mode</span>
-                  </>
-                )}
-              </div>
-
-              <div
-                className="cursor-pointer hover:bg-gray-300 dark:hover:bg-slate-700 py-2 px-4 w-36 rounded"
+                className="cursor-pointer hover:bg-gray-300 py-2 px-4 w-36 rounded"
                 onClick={() => {
                   signOut({ callbackUrl: "/auth" });
                 }}
