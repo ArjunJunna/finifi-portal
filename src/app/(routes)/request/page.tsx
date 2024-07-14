@@ -1,9 +1,7 @@
-import React from 'react'
-
-const page = () => {
+const RequestPage = () => {
   return (
-    <div>Request Page</div>
+    <div className='text-black p-4'>Request Page</div>
   )
 }
 
-export default page
+export default RequestPage;
