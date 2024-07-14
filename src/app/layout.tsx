@@ -10,8 +10,11 @@ import Navbar from "../components/Navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Finifi",
-  description: "Finifi Dashboard Portal",
+  title: {
+    default: "Finifi",
+    template: "%s - Finifi",
+  },
+  description: "Financing made easy.",
 };
 
 export default function RootLayout({
