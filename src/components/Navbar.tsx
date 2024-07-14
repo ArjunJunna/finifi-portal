@@ -5,12 +5,10 @@ import { BellDot } from "lucide-react";
 import Image from "next/image";
 import { signOut } from "next-auth/react";
 import useOnClickOutside from "@/utils/useOnClickOutside";
+import { useSession } from "next-auth/react";
 
 const Navbar = () => {
-  var user = {
-    username: "Rohit Sharma",
-    email: "rohit.sharma@growquest.in",
-  };
+  const { data: session } = useSession();
   const [showUserModal, setShowUserModal] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
  
@@ -46,8 +44,8 @@ const Navbar = () => {
             />
             <div className="hidden md:flex justify-between gap-x-2 items-center">
               <div className="flex flex-col">
-                <p className="font-semibold text-[12px]">{user.username}</p>
-                <p className="font-normal text-[8px]">{user.email}</p>
+                <p className="font-semibold text-[12px]">{session?.user.username}</p>
+                <p className="font-normal text-[8px]">{session?.user.email}</p>
               </div>
             </div>
           </div>
