@@ -106,7 +106,7 @@ const SignUpForm = ({setShowSignIn }: AuthFormProp) => {
         </div>
 
         {isSubmitting ? (
-          <ButtonLoading className="w-full text-white bg-blue-600 hover:bg-blue-800  focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700" />
+          <ButtonLoading />
         ) : (
           <button
             className="w-full text-white bg-blue-600 hover:bg-blue-800  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700"
