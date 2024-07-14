@@ -1,64 +1,109 @@
-import React from "react";
+const getStatusClass = (status: string) => {
+  switch (status) {
+    case "Rejected":
+      return "text-red-500";
+    case "Approved":
+      return "text-green-500";
+    case "Pending":
+      return "text-blue-500";
+    default:
+      return "text-gray-700";
+  }
+};
 
-const Table = () => {
+const Table = ({ userview, data }: { userview: string; data: any[] }) => {
+  if (data.length === 0) {
+    return (
+      <div className="p-4 text-center text-gray-700">
+        No data exists for the selected view.
+      </div>
+    );
+  }
   return (
-
-
-<div className="overflow-x-auto text-black">
-  <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
-    <thead className="ltr:text-left rtl:text-right">
-      <tr>
-        <th className="sticky inset-y-0 start-0 bg-white py-2">
-          <label htmlFor="SelectAll" className="sr-only">Select All</label>
-
-          <input type="checkbox" id="SelectAll" className="size-5 rounded border-gray-300" />
-        </th>
-        <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Name</th>
-        <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Date of Birth</th>
-        <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Role</th>
-        <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Salary</th>
-      </tr>
-    </thead>
-
-    <tbody className="divide-y divide-gray-200">
-      <tr>
-        <td className="sticky inset-y-0 start-0 bg-white px-4 py-2">
-          <label className="sr-only" htmlFor="Row1">Row 1</label>
-
-          <input className="size-5 rounded border-gray-300" type="checkbox" id="Row1" />
-        </td>
-        <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">John Doe</td>
-        <td className="whitespace-nowrap px-4 py-2 text-gray-700">24/05/1995</td>
-        <td className="whitespace-nowrap px-4 py-2 text-gray-700">Web Developer</td>
-        <td className="whitespace-nowrap px-4 py-2 text-gray-700">$120,000</td>
-      </tr>
-
-      <tr>
-        <td className="sticky inset-y-0 start-0 bg-white px-4 py-2">
-          <label className="sr-only" htmlFor="Row2">Row 2</label>
-
-          <input className="size-5 rounded border-gray-300" type="checkbox" id="Row2" />
-        </td>
-        <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Jane Doe</td>
-        <td className="whitespace-nowrap px-4 py-2 text-gray-700">04/11/1980</td>
-        <td className="whitespace-nowrap px-4 py-2 text-gray-700">Web Designer</td>
-        <td className="whitespace-nowrap px-4 py-2 text-gray-700">$100,000</td>
-      </tr>
-
-      <tr>
-        <td className="sticky inset-y-0 start-0 bg-white px-4 py-2">
-          <label className="sr-only" htmlFor="Row3">Row 3</label>
-
-          <input className="size-5 rounded border-gray-300" type="checkbox" id="Row3" />
-        </td>
-        <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Gary Barlow</td>
-        <td className="whitespace-nowrap px-4 py-2 text-gray-700">24/05/1995</td>
-        <td className="whitespace-nowrap px-4 py-2 text-gray-700">Singer</td>
-        <td className="whitespace-nowrap px-4 py-2 text-gray-700">$20,000</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+    <div className="overflow-x-auto">
+      <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+        <thead className="ltr:text-left rtl:text-right">
+          <tr>
+            <td className="sticky inset-y-0 start-0 bg-white px-4 py-2">
+              <label htmlFor="SelectAll" className="sr-only">
+                Select All
+              </label>
+              <input
+                type="checkbox"
+                id="SelectAll"
+                className="size-5 rounded border-gray-300"
+              />
+            </td>
+            <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+              Customer Name
+            </td>
+            <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+              POC Name
+            </td>
+            <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+              POC Email
+            </td>
+            {userview === "Requested" ? (
+              <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                Requested Date
+              </td>
+            ) : (
+              <>
+                <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                  Submitted Date
+                </td>
+                <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                  Status
+                </td>
+              </>
+            )}
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-gray-200">
+          {data.map((data, index) => (
+            <tr key={index}>
+              <td className="sticky inset-y-0 start-0 bg-white px-4 py-2">
+                <label className="sr-only" htmlFor={`Row${index + 1}`}>
+                  Row {index + 1}
+                </label>
+                <input
+                  className="size-5 rounded border-gray-300"
+                  type="checkbox"
+                  id={`Row${index + 1}`}
+                />
+              </td>
+              <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                {data.customerName}
+              </td>
+              <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                {data.pocName}
+              </td>
+              <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                {data.pocEmail}
+              </td>
+              {userview === "Requested" ? (
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                  {data.requestedDate}
+                </td>
+              ) : (
+                <>
+                  <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                    {data.submittedDate}
+                  </td>
+                  <td
+                    className={`whitespace-nowrap px-4 py-2 ${getStatusClass(
+                      data.status
+                    )}`}
+                  >
+                    {data.status}
+                  </td>
+                </>
+              )}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
