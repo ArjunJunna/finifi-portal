@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
 import React from "react";
 import { useState } from "react";
-import Table from "./components/Table";
+import Table from "@/components/Table";
 import { Calendar, Search } from "lucide-react";
 
-const Page = () => {
+const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("Requested");
   const [requestedDate, setRequestedDate] = useState("RequestedDate");
   return (
-    <div className="flex flex-col">
+    <>
       <div className="flex text-black h-16 items-center pl-8 space-x-16 sm:space-x-24 border-b border-gray-200 relative">
         <div
           className="flex flex-col items-center cursor-pointer"
@@ -50,8 +50,8 @@ const Page = () => {
         </div>
       </div>
       <Table />
-    </div>
+    </>
   );
 };
 
-export default Page;
+export default Dashboard;

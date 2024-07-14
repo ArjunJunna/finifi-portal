@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { Compass, StickyNote } from "lucide-react";
 import Link from "next/link";
@@ -11,14 +11,14 @@ const Sidebar = () => {
 
   const menuItems = [
     {
-      key: "home",
-      href: "/dashboard",
+      key: "dashboard",
+      href: "/",
       icon: <Compass className="h-4 w-4" />,
       text: "Dashboard",
     },
     {
       key: "requests",
-      href: "/dashboard/request",
+      href: "/request",
       icon: <StickyNote className="h-4 w-4" />,
       text: "Requests",
     },

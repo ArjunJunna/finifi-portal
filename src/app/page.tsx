@@ -1,9 +1,12 @@
-import Image from "next/image";
+import Dashboard from "@/components/Dashboard";
 
-export default function Home() {
+const Page = () => {
+
   return (
-    <div>
-      FINIFI PORTAL
+    <div className="flex flex-col">
+      <Dashboard/>
     </div>
   );
-}
+};
+
+export default Page;
